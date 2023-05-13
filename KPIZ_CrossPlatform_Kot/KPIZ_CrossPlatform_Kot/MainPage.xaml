@@ -31,7 +31,7 @@
     </ContentPage.Resources>
 
     <ScrollView>
-    <Grid>
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -44,58 +44,82 @@
                 </Editor.Behaviors>
             </Editor>
             <ActivityIndicator IsRunning="{Binding IsLoading}"
-                               Grid.Row="1" 
-                               Color="Blue"/>
+                               Grid.Row="1"
+                               Color="Blue" />
             <StackLayout BindableLayout.ItemsSource="{Binding Beers}"
                          Grid.Row="1">
                 <BindableLayout.ItemTemplate>
-                <DataTemplate x:DataType="models:Beer">
-                    <Frame Style="{StaticResource SectionFrameStyle}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="0.2*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="2" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="5" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="5" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Image Source="{Binding ImageUrl}"
-                                   WidthRequest="50"
-                                   HeightRequest="200"
-                                   Grid.RowSpan="7" />
-                            <Label Text="{Binding Name}"
-                                   Grid.Column="2"
-                                   FontSize="Title"
-                                   FontAttributes="Bold"/>
+                    <DataTemplate x:DataType="models:Beer">
+                        <Frame Style="{StaticResource SectionFrameStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="0.2*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="2" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="5" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="5" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Image Source="{Binding ImageUrl}"
+                                       WidthRequest="50"
+                                       HeightRequest="200"
+                                       Grid.RowSpan="8" />
+                                <Label Text="{Binding Name}"
+                                       Grid.Column="2"
+                                       FontSize="Title"
+                                       FontAttributes="Bold" />
 
-                            <Label Text="{Binding Tagline}"
-                                   Grid.Column="2"
-                                   Grid.Row="2"
-                                   FontSize="Subtitle"/>
+                                <Label Text="{Binding Tagline}"
+                                       Grid.Column="2"
+                                       Grid.Row="2"
+                                       FontSize="Subtitle" />
 
-                            <Label Text="{Binding Description}"
-                                   Grid.Column="2"
-                                   Grid.Row="4" 
-                                   FontAttributes="Italic"/>
-                            <StackLayout Orientation="Horizontal"
-                                         Grid.Column="2"
-                                         Grid.Row="6">
-                                <Label Text="{Binding Abv, StringFormat='ABV: {0}'}" />
-                                <Label Text="{Binding Ph, StringFormat='Ph: {0}'}" />
-                                <Label Text="{Binding Ibu, StringFormat='IBU: {0}'}" />
-                            </StackLayout>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </StackLayout>
-    </Grid>
+                                <Label Text="{Binding Description}"
+                                       Grid.Column="2"
+                                       Grid.Row="4"
+                                       FontAttributes="Italic" />
+                                <StackLayout Orientation="Horizontal"
+                                             Grid.Column="2"
+                                             Grid.Row="6">
+                                    <Label Text="{Binding Abv, StringFormat='ABV: {0}'}" />
+                                    <Label Text="{Binding Ph, StringFormat='Ph: {0}'}" />
+                                    <Label Text="{Binding Ibu, StringFormat='IBU: {0}'}" />
+                                </StackLayout>
+                                <FlexLayout BindableLayout.ItemsSource="{Binding FoodPairing}"
+                                            Direction="Row"
+                                            Wrap="Wrap"
+                                            AlignItems="Center"
+                                            Grid.Row="7"
+                                            Grid.Column="2">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <Frame BorderColor="#027AFF"
+                                                   BackgroundColor="Transparent"
+                                                   MinimumWidthRequest="100"
+                                                   Padding="10"
+                                                   CornerRadius="25"
+                                                   Margin="0,3,3,3">
+                                                <Label TextColor="#027AFF"
+                                                       VerticalOptions="Center"
+                                                       FontSize="Micro"
+                                                       Text="{Binding}">
+                                                </Label>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </FlexLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>
