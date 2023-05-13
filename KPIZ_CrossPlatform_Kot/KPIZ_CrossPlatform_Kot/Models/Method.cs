@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace KPIZ_CrossPlatform_Kot.Models
 {
@@ -14,17 +15,18 @@ namespace KPIZ_CrossPlatform_Kot.Models
         private Fermentation _fermentation;
         private string _twist;
 
-        [AliasAs("mash_temp")]
+        [JsonPropertyName("mash_temp")]
         public ObservableCollection<MashTemp> MashTemp { get => _mashTemp; set => SetProperty(ref _mashTemp, value); }
 
-        [AliasAs("fermentation")]
+        [JsonPropertyName("fermentation")]
         public Fermentation Fermentation { get => _fermentation; set => SetProperty(ref _fermentation, value); }
 
-        [AliasAs("twist")]
+        [JsonPropertyName("twist")]
         public string Twist { get => _twist; set => SetProperty(ref _twist, value); }
 
         public Method()
         {
+            MashTemp = new ObservableCollection<MashTemp>();
         }
     }
 }

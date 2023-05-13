@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace KPIZ_CrossPlatform_Kot.Models
 {
@@ -32,67 +33,67 @@ namespace KPIZ_CrossPlatform_Kot.Models
         private string _brewersTips;
         private string _contributedBy;
 
-        [AliasAs("id")]
+        [JsonPropertyName("id")]
         public int Id { get => _id; set => SetProperty(ref _id, value); }
 
-        [AliasAs("name")]
+        [JsonPropertyName("name")]
         public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-        [AliasAs("tagline")]
+        [JsonPropertyName("tagline")]
         public string Tagline { get => _tagline; set => SetProperty(ref _tagline, value); }
 
-        [AliasAs("first_brewed")]
+        [JsonPropertyName("first_brewed")]
         public string FirstBrewed { get => _firstBrewed; set => SetProperty(ref _firstBrewed, value);}
 
-        [AliasAs("description")]
+        [JsonPropertyName("description")]
         public string Description { get => _description; set => SetProperty(ref _description, value); }
 
-        [AliasAs("image_url")]
+        [JsonPropertyName("image_url")]
         public string ImageUrl { get => _imageUrl; set => SetProperty(ref _imageUrl, value); }
 
-        [AliasAs("abv")]
+        [JsonPropertyName("abv")]
         public double Abv { get => _abv; set => SetProperty(ref _abv, value); }
 
-        [AliasAs("ibu")]
+        [JsonPropertyName("ibu")]
         public double? Ibu { get => _ibu; set => SetProperty(ref _ibu, value); }
 
-        [AliasAs("target_fg")]
+        [JsonPropertyName("target_fg")]
         public int TargetFg { get => _targetFg; set => SetProperty(ref _targetFg, value); }
 
-        [AliasAs("target_og")]
+        [JsonPropertyName("target_og")]
         public double TargetOg { get => _targetOg; set => SetProperty(ref _targetOg, value); }
 
-        [AliasAs("ebc")]
+        [JsonPropertyName("ebc")]
         public int? Ebc { get => _ebc; set => SetProperty(ref _ebc, value); }
 
-        [AliasAs("srm")]
+        [JsonPropertyName("srm")]
         public double? Srm { get => _srm; set => SetProperty(ref _srm, value); }
 
-        [AliasAs("ph")]
+        [JsonPropertyName("ph")]
         public double? Ph { get => _ph; set => SetProperty(ref _ph, value); }
 
-        [AliasAs("attenuation_level")]
+        [JsonPropertyName("attenuation_level")]
         public double AttenuationLevel { get  => _attenuationLevel; set => SetProperty(ref _attenuationLevel, value); }
 
-        [AliasAs("volume")]
+        [JsonPropertyName("volume")]
         public Volume Volume { get => _volume; set => SetProperty(ref _volume, value); }
 
-        [AliasAs("boil_volume")]
+        [JsonPropertyName("boil_volume")]
         public BoilVolume BoilVolume { get => _boilVolume; set => SetProperty(ref _boilVolume, value); }
 
-        [AliasAs("method")]
+        [JsonPropertyName("method")]
         public Method Method { get => _method; set => SetProperty(ref _method, value); }
 
-        [AliasAs("Ingredients")]
+        [JsonPropertyName("Ingredients")]
         public Ingredients Ingredients { get => _ingredients; set => SetProperty(ref _ingredients, value);}
 
-        [AliasAs("food_pairing")]
+        [JsonPropertyName("food_pairing")]
         public ObservableCollection<string> FoodPairing { get => _foodPairing; set => SetProperty(ref _foodPairing, value); }
 
-        [AliasAs("brewers_tips")]
+        [JsonPropertyName("brewers_tips")]
         public string BrewersTips { get => _brewersTips; set => SetProperty(ref _brewersTips, value); }
 
-        [AliasAs("contributed_by")]
+        [JsonPropertyName("contributed_by")]
         public string ContributdBy { get => _contributedBy; set => SetProperty(ref _contributedBy, value); }
 
         public Beer()

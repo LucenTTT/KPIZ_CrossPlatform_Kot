@@ -4,6 +4,7 @@ using Refit;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace KPIZ_CrossPlatform_Kot.Models
 {
@@ -12,10 +13,10 @@ namespace KPIZ_CrossPlatform_Kot.Models
         private double _value;
         private string _unit;
 
-        [AliasAs("value")]
+        [JsonPropertyName("value")]
         public double Value { get => _value; set => SetProperty(ref _value, value); }
 
-        [AliasAs("unit")]
+        [JsonPropertyName("unit")]
         public string Unit { get => _unit; set => SetProperty(ref _unit, value); }
     }
 }

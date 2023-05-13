@@ -18,7 +18,6 @@ namespace KPIZ_CrossPlatform_Kot.ViewModels
     {
         private IPunkApi _punkApiService;
         private ObservableCollection<Beer> _beers;
-        private IMapper _mapper;
         private bool _isLoading;
 
         private string _beerName;
@@ -48,10 +47,9 @@ namespace KPIZ_CrossPlatform_Kot.ViewModels
 
         public AsyncRelayCommand FindBeerCommand { get; }
 
-        public MainPageViewModel(IMessenger messenger, IPunkApi punkApiService, IMapper mapper) : base(messenger)
+        public MainPageViewModel(IMessenger messenger, IPunkApi punkApiService) : base(messenger)
         {
             _punkApiService = punkApiService;
-            _mapper = mapper;
             Beers = new ObservableCollection<Beer>();
             FindBeerCommand = new AsyncRelayCommand(OnFindingBeerAsync);
             IsLoading = true;
@@ -60,18 +58,12 @@ namespace KPIZ_CrossPlatform_Kot.ViewModels
         private async Task OnFindingBeerAsync()
         {
             IsLoading = true;
-            var beersDtos = string.IsNullOrEmpty(BeerName) ? await _punkApiService.GetBeers() : await _punkApiService.GetBeers(BeerName);
-            ApplySequence(beersDtos);
-            IsLoading = false;
-        }
-
-        private void ApplySequence(IEnumerable<BeerDto> beerDtos)
-        {
-            var beers = _mapper.Map<IEnumerable<Beer>>(beerDtos);
+            var beers = string.IsNullOrEmpty(BeerName) ? await _punkApiService.GetBeers() : await _punkApiService.GetBeers(BeerName);
             if (!Beers.SequenceEqual(beers))
             {
                 Beers = new ObservableCollection<Beer>(beers);
             }
+            IsLoading = false;
         }
     }
 }
