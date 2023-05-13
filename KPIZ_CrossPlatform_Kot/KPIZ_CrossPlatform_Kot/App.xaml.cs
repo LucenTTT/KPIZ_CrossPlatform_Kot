@@ -1,15 +1,23 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using KPIZ_CrossPlatform_Kot.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Refit;
+using KPIZ_CrossPlatform_Kot.Abstractions;
+using System.Net.Http;
 
 namespace KPIZ_CrossPlatform_Kot
 {
     public partial class App : Application
     {
+        public new static App Current => (App)Application.Current;
+        public IServiceProvider Services { get; }
         public App()
         {
             InitializeComponent();
-
+            Services = ConfigureServices();
             MainPage = new MainPage();
         }
 
@@ -23,6 +31,20 @@ namespace KPIZ_CrossPlatform_Kot
 
         protected override void OnResume()
         {
+        }
+        private IServiceProvider ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            services.AddTransient<MainPageViewModel>();
+            services.AddSingleton<IMessenger, WeakReferenceMessenger>();
+            services.AddRefitClient<IPunkApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.punkapi.com/v2/"))
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+
+                });
+            return services.BuildServiceProvider();
         }
     }
 }

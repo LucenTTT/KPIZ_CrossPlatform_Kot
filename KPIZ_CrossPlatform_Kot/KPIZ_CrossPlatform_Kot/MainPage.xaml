@@ -19,6 +19,9 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <Button Command="{Binding RequestCommand}"
+                Text="Request">
+        </Button>
     </StackLayout>
 
 </ContentPage>
