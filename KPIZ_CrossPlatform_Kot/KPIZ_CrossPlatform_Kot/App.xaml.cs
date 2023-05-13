@@ -7,6 +7,11 @@ using Xamarin.Forms.Xaml;
 using Refit;
 using KPIZ_CrossPlatform_Kot.Abstractions;
 using System.Net.Http;
+using AutoMapper;
+using KPIZ_CrossPlatform_Kot.Models;
+using KPIZ_CrossPlatform_Kot.Profiles;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace KPIZ_CrossPlatform_Kot
 {
@@ -37,6 +42,7 @@ namespace KPIZ_CrossPlatform_Kot
             var services = new ServiceCollection();
             services.AddTransient<MainPageViewModel>();
             services.AddSingleton<IMessenger, WeakReferenceMessenger>();
+            services.AddAutoMapper(m => m.AddProfile<ApplicationProfile>());
             services.AddRefitClient<IPunkApi>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.punkapi.com/v2/"))
                 .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler

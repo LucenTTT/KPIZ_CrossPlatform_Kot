@@ -11,6 +11,9 @@ namespace KPIZ_CrossPlatform_Kot.Abstractions
     public interface IPunkApi
     {
         [Get("/beers")]
-        Task<ObservableCollection<Beer>> GetBeers();
+        Task<IEnumerable<BeerDto>> GetBeers();
+
+        [Get("/beers?beer_name={beer_name}")]
+        Task<IEnumerable<BeerDto>> GetBeers([AliasAs("beer_name")] string beerName);
     }
 }

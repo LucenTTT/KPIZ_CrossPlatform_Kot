@@ -1,27 +1,101 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:KPIZ_CrossPlatform_Kot.Models"
+             xmlns:converters="clr-namespace:KPIZ_CrossPlatform_Kot.Converters"
+             xmlns:viewModels="clr-namespace:KPIZ_CrossPlatform_Kot.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
              x:Class="KPIZ_CrossPlatform_Kot.MainPage">
+    <ContentPage.Resources>
+        <Style x:Key="SectionFrameStyle"
+               TargetType="Frame">
+            <Setter Property="HasShadow"
+                    Value="True" />
+            <Setter Property="Margin"
+                    Value="3" />
+            <Setter Property="CornerRadius"
+                    Value="10" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0"
+                                         EndPoint="0,1">
+                        <GradientStop Color="#dcebfc"
+                                      Offset="0.1" />
+                        <GradientStop Color="White"
+                                      Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Button Command="{Binding RequestCommand}"
-                Text="Request">
-        </Button>
-    </StackLayout>
+    <ScrollView>
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Editor Text="{Binding BeerName}">
+                <Editor.Behaviors>
+                    <behaviors:EventHandlerBehavior EventName="Completed">
+                        <behaviors:InvokeCommandAction Command="{Binding FindBeerCommand}" />
+                    </behaviors:EventHandlerBehavior>
+                </Editor.Behaviors>
+            </Editor>
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               Grid.Row="1" 
+                               Color="Blue"/>
+            <StackLayout BindableLayout.ItemsSource="{Binding Beers}"
+                         Grid.Row="1">
+                <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:Beer">
+                    <Frame Style="{StaticResource SectionFrameStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding ImageUrl}"
+                                   WidthRequest="50"
+                                   HeightRequest="200"
+                                   Grid.RowSpan="7" />
+                            <Label Text="{Binding Name}"
+                                   Grid.Column="2"
+                                   FontSize="Title"
+                                   FontAttributes="Bold"/>
 
+                            <Label Text="{Binding Tagline}"
+                                   Grid.Column="2"
+                                   Grid.Row="2"
+                                   FontSize="Subtitle"/>
+
+                            <Label Text="{Binding Description}"
+                                   Grid.Column="2"
+                                   Grid.Row="4" 
+                                   FontAttributes="Italic"/>
+                            <StackLayout Orientation="Horizontal"
+                                         Grid.Column="2"
+                                         Grid.Row="6">
+                                <Label Text="{Binding Abv, StringFormat='ABV: {0}'}" />
+                                <Label Text="{Binding Ph, StringFormat='Ph: {0}'}" />
+                                <Label Text="{Binding Ibu, StringFormat='IBU: {0}'}" />
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </Grid>
+    </ScrollView>
 </ContentPage>

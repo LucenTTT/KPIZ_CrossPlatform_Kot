@@ -7,11 +7,11 @@ using System.Text;
 
 namespace KPIZ_CrossPlatform_Kot.Models
 {
-    public class Volume : ObservableObject
+    public class Temp : ObservableObject
     {
         private int _value;
         private string _unit;
-        
+
         [AliasAs("value")]
         public int Value { get => _value; set => SetProperty(ref _value, value); }
 

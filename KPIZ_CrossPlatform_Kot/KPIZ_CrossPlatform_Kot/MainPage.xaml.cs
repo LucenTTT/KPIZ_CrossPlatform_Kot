@@ -21,6 +21,12 @@ namespace KPIZ_CrossPlatform_Kot
             _viewModel = App.Current.Services.GetService<MainPageViewModel>();
             BindingContext = _viewModel;
             InitializeComponent();
+            Appearing += MainPage_Appearing;
+        }
+
+        private async void MainPage_Appearing(object sender, EventArgs e)
+        {
+            await _viewModel.FindBeerCommand.ExecuteAsync(null);
         }
     }
 }

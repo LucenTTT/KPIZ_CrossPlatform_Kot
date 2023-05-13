@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,18 +14,17 @@ namespace KPIZ_CrossPlatform_Kot.Models
         private Fermentation _fermentation;
         private string _twist;
 
-        [JsonProperty("mash_temp")]
+        [AliasAs("mash_temp")]
         public ObservableCollection<MashTemp> MashTemp { get => _mashTemp; set => SetProperty(ref _mashTemp, value); }
 
-        [JsonProperty("fermentation")]
+        [AliasAs("fermentation")]
         public Fermentation Fermentation { get => _fermentation; set => SetProperty(ref _fermentation, value); }
 
-        [JsonProperty("twist")]
+        [AliasAs("twist")]
         public string Twist { get => _twist; set => SetProperty(ref _twist, value); }
 
         public Method()
         {
-            MashTemp = new ObservableCollection<MashTemp>();
         }
     }
 }
